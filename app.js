@@ -2,6 +2,7 @@ const express=require('express')
 const bodyParser=require('body-parser')
 const request=require('request')
 const https=require('https')
+const config=require('./config')
 const app=express()
 const port=3000
 
@@ -29,10 +30,10 @@ app.post('/',(req,res)=>{
         ]
     }
     const jsonData=JSON.stringify(data);
-    const url="https://us10.api.mailchimp.com/3.0/lists/4fd47a0780"
+    const url=`https://${datacenter}.api.mailchimp.com/3.0/lists/${config.mailchimpListId}`
     const options={
         method: "POST",
-        auth: "sakshi:b5d05d8aff6e41afa39525c4268a62b0-us10",
+        auth: `sakshi:${config.mailchimpApiKey}`,
     }
     const request=https.request(url,options,function(response){
         console.log(response.statusCode)
@@ -58,7 +59,3 @@ app.listen(port ,(req,res)=>{
     console.log("successfully running at 3000 ")
 })
 
-//d295479be4a131261d357cd1edaced73-us10
-//b5d05d8aff6e41afa39525c4268a62b0-us10
-//audienceid-4fd47a0780
-//md5 hashcode for email-7e9d23fa3690995c787f1ec72f6f3965
